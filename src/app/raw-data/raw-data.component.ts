@@ -1,0 +1,75 @@
+import { CommonService } from './../service/common.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-raw-data',
+  templateUrl: './raw-data.component.html',
+  styleUrls: ['./raw-data.component.css']
+})
+export class RawDataComponent implements OnInit {
+
+  showChild:boolean;
+  postid:any=0;
+  
+  displayedColumns = ['id', 'title', 'desc', 'action'];
+  dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  datas: any;
+  constructor(public commonService: CommonService,private router: Router) {}
+
+  ngOnInit(): void {
+    this.commonService.getPosts().subscribe(data => {
+      this.datas = data;
+      console.log("get datas- subscribe------------", data);
+      this.dataSource = new MatTableDataSource(this.datas);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }); 
+  }
+
+  getChild(id){
+    console.log("mat id check ",id);
+    this.postid = id;
+    if(id){
+      this.commonService.showContainer = true;
+    }
+    // this.router.navigate(['/showpost']);
+  }
+
+
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+
+  GetChildData(e){
+    if(e){
+      this.commonService.showContainer = false;
+      this.dataSource = new MatTableDataSource(this.datas);
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+    }
+    console.log("datassssssss-----",e);
+  }
+
+}
+
+

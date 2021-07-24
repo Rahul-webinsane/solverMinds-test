@@ -1,0 +1,26 @@
+
+<div class="col-12 pt-5">
+    <div class="container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+  
+          <tr *ngFor="let list of collection">
+            <td>{{list.id}}</td>
+            <td>{{list.title}}</td>
+            <td>{{list.body}}</td>
+            <td>
+               <button class="btn btn-primary" (click)="sendParent(list.id)"><i class="fa fa-trash" aria-hidden="true"></i>Send Parent</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
