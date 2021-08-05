@@ -1,10 +1,13 @@
 import { CommonService } from './../service/common.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { ShowRawDatasComponent } from '../show-raw-datas/show-raw-datas.component';
+import { ViewChild } from '@angular/core';
+import { MoviesListComponent } from '../movies-list/movies-list.component';
 
 
 @Component({
@@ -12,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './raw-data.component.html',
   styleUrls: ['./raw-data.component.css']
 })
-export class RawDataComponent implements OnInit {
+export class RawDataComponent implements OnInit , AfterViewInit   {
 
   showChild:boolean;
   postid:any=0;
@@ -22,10 +25,13 @@ export class RawDataComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(ShowRawDatasComponent , {static: false}) childShow: ShowRawDatasComponent;
 
 
   datas: any;
-  constructor(public commonService: CommonService,private router: Router) {}
+  constructor(public commonService: CommonService,private router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.commonService.getPosts().subscribe(data => {
@@ -35,6 +41,7 @@ export class RawDataComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }); 
+
   }
 
   getChild(id){
@@ -48,11 +55,16 @@ export class RawDataComponent implements OnInit {
 
 
 
-  ngAfterViewInit() {
+ async ngAfterViewInit() {
+    // await this.childShow.getProducts();
+    
+    console.log("VIEW CHILD METHOD CHECKING -------",this.childShow.outputMessage);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    // console.log("VIEW CHILD METHOD CHECKING -------",this.childShow.outputMessage);
   }
-
+  
+ 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -68,7 +80,9 @@ export class RawDataComponent implements OnInit {
       // this.dataSource.sort = this.sort;
     }
     console.log("datassssssss-----",e);
+   
   }
+
 
 }
 

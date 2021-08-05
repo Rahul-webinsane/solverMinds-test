@@ -9,18 +9,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ShowRawDatasComponent implements OnInit {
   
 
-  @Input() postid: any = 0;
+  @Input() postids: any = 0;
   @Output() myOutput:EventEmitter<string>= new EventEmitter();  
 
-  outputMessage:string="I am child component."  
-
+ 
+  // outputMessage:string;
   postId:any=0;
   collection:any=[];
-  constructor(public commonService: CommonService) { }
+  outputMessage="I am child component." 
+  constructor(public commonService: CommonService) { 
+     
+  }
 
   ngOnChanges() {
-    this.postId = this.postid;
-    console.log("Get datasss--NG ON CHANGES----- @Input", this.postid);
+    this.postId = this.postids;
+    console.log("Get datasss--NG ON CHANGES----- @Input", this.postids);
     if(this.postId != 0){
       this.getPosts(this.postId);
     }
@@ -43,6 +46,12 @@ export class ShowRawDatasComponent implements OnInit {
     this.myOutput.emit(e);  
     
   }
+
+ async getProducts() {  
+
+    console.log("get proooooo ");
+    
+  }  
 
 
 }

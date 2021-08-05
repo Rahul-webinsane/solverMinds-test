@@ -1,3 +1,4 @@
+import { CommonService } from './../service/common.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit(): void {
+
+    this.commonService.getMoviesLists().subscribe((data) => {
+      // this.movieCollection = data['results'];
+      console.log("collection", data);
+    });
+
+    this.checkMethod();
   }
 
   appRender:any=[
@@ -27,5 +35,21 @@ export class HomeComponent implements OnInit {
     'Using Bootstarp npm *** using angular material npm ',
     'Two Api using * Themoviedb and jsonplaceholder'
   ]
+
+
+  checkMethod(){
+    
+    for(let i=0;i<5;i++){
+      console.log("outter set time out");
+      setTimeout(
+        ()=>{
+          console.log("loop index",i);
+          
+        },3000
+      );  
+    }
+    console.log("outter set time out");
+  }
+
 
 }

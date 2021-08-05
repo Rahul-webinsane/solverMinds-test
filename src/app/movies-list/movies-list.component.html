@@ -1,6 +1,19 @@
 <div class="container">
     <br>
-    <div *ngFor="let item of movieCollection" style="display: inline-block">
-        <img src="{{movimgUrl}}{{item.poster_path}}" alt="">
+    <!-- <div *ngFor="let item of movieCollection" style="display: inline-block;">
+        <img src="{{movimgUrl}}{{item.poster_path}}" alt="" style="padding: 10px 10px;" (click)="getImgData(item.id)">
+    </div> -->
+
+    <div>
+        <div class="card"  *ngFor="let item of movieCollection" style="display: inline-block;width: 18rem">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <img class="card-img-top" src="{{movimgUrl}}{{item.poster_path}}" style="padding: 10px;" alt=""  (click)="getImgData(item)">
+            <div class="card-body">
+              <h3 class="card-title">{{item.original_title == '' ? 'coming soon' : item.original_title}}</h3>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a  class="btn btn-primary"  (click)="getImgData(item)">Go Movie</a>
+            </div>
+          </div>
     </div>
+    
 </div>

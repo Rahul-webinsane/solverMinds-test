@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoviesListComponent implements OnInit {
 
+
+  movieName:string="rambo";
   movieCollection:any=[];
   movimgUrl:string='';
   // https://image.tmdb.org/t/p/w185_and_h278_bestv2
@@ -21,6 +23,12 @@ export class MoviesListComponent implements OnInit {
       this.movieCollection = data['results'];
       console.log("collection", this.movieCollection);
     });
+    
+  }
+
+
+  getImgData(e){
+    console.log("img",e);
     
   }
 

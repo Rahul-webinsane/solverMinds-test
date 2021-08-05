@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MoviesListComponent } from './movies-list/movies-list.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RawDataComponent } from './raw-data/raw-data.component';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,12 @@ import { CdkTableModule } from '@angular/cdk/table/table-module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ShowRawDatasComponent } from './show-raw-datas/show-raw-datas.component';
+import { FieldValidateComponent } from './field-validate/field-validate.component';
+import { FormValidateComponent } from './form-validate/form-validate.component';
+import { HighLightPipe } from './high-light.pipe';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { HttpInterceptorService } from './loader/http-interceptor.service';
 
 
 export class DemoMaterialModule {}
@@ -29,7 +35,10 @@ export class DemoMaterialModule {}
     HomeComponent,
     MoviesListComponent,
     RawDataComponent,
-    ShowRawDatasComponent
+    ShowRawDatasComponent,
+    FieldValidateComponent,
+    FormValidateComponent,
+    HighLightPipe
   ],
   imports: [
     BrowserModule,
@@ -52,8 +61,9 @@ export class DemoMaterialModule {}
     // MatInputModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressBarModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS,useClass: HttpInterceptorService,multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
