@@ -8,7 +8,7 @@ import { MoviesListComponent } from './movies-list/movies-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RawDataComponent } from './raw-data/raw-data.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -25,6 +25,11 @@ import { HighLightPipe } from './high-light.pipe';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { HttpInterceptorService } from './loader/http-interceptor.service';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { AngularMaterialModule } from './angular-material/angular-material/angular-material.module';
+import { AuthInterceptorProvider } from './service/auth.interceptor';
+import { FakeApiInterceptor, FakeApiInterceptorProvider } from './service/fake-api.interceptor';
 
 
 export class DemoMaterialModule {}
@@ -38,7 +43,9 @@ export class DemoMaterialModule {}
     ShowRawDatasComponent,
     FieldValidateComponent,
     FormValidateComponent,
-    HighLightPipe
+    HighLightPipe,
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,24 +53,11 @@ export class DemoMaterialModule {}
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    AngularMaterialModule,
 
-    // materials
-    MatTableModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatInputModule,
-
-
-    // CdkTableModule,
-    // MatButtonModule,
-    // MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressBarModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS,useClass: HttpInterceptorService,multi: true}],
+  providers: [AuthInterceptorProvider,FakeApiInterceptorProvider,{provide: HTTP_INTERCEPTORS,useClass: HttpInterceptorService,multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -23,9 +24,20 @@ export class CommonService {
 
 
   showContainer:boolean = false;
-
-
   constructor(private http: HttpClient) { }
+
+  // login section
+
+  login(username: string, password: string) {
+    return this.http.post('login', { username, password });
+  }
+
+  getProducts(): Observable<any> {
+    return this.http.get('products', {
+      headers: {},
+    });
+  }
+  
 
   getMoviesLists(){
     return this.http.get(`${this.apiBaseUrl}${this.API_KEY}&language=en-US`);

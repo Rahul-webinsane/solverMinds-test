@@ -12,12 +12,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.commonService.getMoviesLists().subscribe((data) => {
-      // this.movieCollection = data['results'];
-      console.log("collection", data);
-    });
-
-    this.checkMethod();
+    // this.commonService.getMoviesLists().subscribe((data) => {
+    //   // this.movieCollection = data['results'];
+    //   console.log("collection", data);
+    // });
+    
+    // this.checkMethod();
   }
 
   appRender:any=[
@@ -37,19 +37,19 @@ export class HomeComponent implements OnInit {
   ]
 
 
-  checkMethod(){
+  // checkMethod(){
     
-    for(let i=0;i<5;i++){
-      console.log("outter set time out");
-      setTimeout(
-        ()=>{
-          console.log("loop index",i);
+  //   for(let i=0;i<5;i++){
+  //     console.log("outter set time out");
+  //     setTimeout(
+  //       ()=>{
+  //         console.log("loop index",i);
           
-        },3000
-      );  
-    }
-    console.log("outter set time out");
-  }
+  //       },3000
+  //     );  
+  //   }
+  //   console.log("outter set time out");
+  // }
 
 
 }

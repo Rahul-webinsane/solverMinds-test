@@ -25,7 +25,7 @@ export class RawDataComponent implements OnInit , AfterViewInit   {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(ShowRawDatasComponent , {static: false}) childShow: ShowRawDatasComponent;
+  @ViewChild(ShowRawDatasComponent) childShow: ShowRawDatasComponent;
 
 
   datas: any;
@@ -55,13 +55,10 @@ export class RawDataComponent implements OnInit , AfterViewInit   {
 
 
 
- async ngAfterViewInit() {
+ngAfterViewInit() {
     // await this.childShow.getProducts();
-    
-    console.log("VIEW CHILD METHOD CHECKING -------",this.childShow.outputMessage);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    // console.log("VIEW CHILD METHOD CHECKING -------",this.childShow.outputMessage);
   }
   
  
