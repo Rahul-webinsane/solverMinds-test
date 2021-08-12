@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -21,6 +22,9 @@ export class CommonService {
 
   jsonApi='https://jsonplaceholder.typicode.com/posts';
   postApi ='//jsonplaceholder.typicode.com/posts';
+
+
+  _lazyApi="https://jsonplaceholder.typicode.com/postss";
 
 
   showContainer:boolean = false;
@@ -55,4 +59,19 @@ export class CommonService {
    getpostsById(id: any) {
     return this.http.get(`${this.postApi}/${id}`);
    }
+
+   getLazyApi(){
+     return this.http.get(this._lazyApi);
+   }
+
+  //  handleError(err){
+
+  //   if(err instanceof HttpErrorResponse){
+
+  //     // server side error
+  //   }else{
+  //     // client side error
+  //   }
+  //    return throwError(err)
+  //  }
 }

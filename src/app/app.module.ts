@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
 import { AngularMaterialModule } from './angular-material/angular-material/angular-material.module';
 import { AuthInterceptorProvider } from './service/auth.interceptor';
 import { FakeApiInterceptor, FakeApiInterceptorProvider } from './service/fake-api.interceptor';
+import { errorHandling } from './service/error-handling.interceptor';
 
 
 export class DemoMaterialModule {}
@@ -57,7 +58,7 @@ export class DemoMaterialModule {}
     AngularMaterialModule,
 
   ],
-  providers: [AuthInterceptorProvider,FakeApiInterceptorProvider,{provide: HTTP_INTERCEPTORS,useClass: HttpInterceptorService,multi: true}],
+  providers: [AuthInterceptorProvider,FakeApiInterceptorProvider,errorHandling,{provide: HTTP_INTERCEPTORS,useClass: HttpInterceptorService,multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

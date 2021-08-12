@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
+import { CommonService } from 'src/app/service/common.service';
 
 @Component({
   selector: 'app-learn',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LearnComponent implements OnInit {
 
-  constructor() { }
+  errorMsg:any="";
+  constructor(private apiService: CommonService) { }
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+
+
+  fetchData(){
+   this.apiService.getLazyApi().subscribe(
+     (x) =>{
+       console.log("x datas-----",x);
+       
+     },
+     error => {
+       console.log(error);
+       this.errorMsg = error.status;
+     }
+   ); 
   }
 
 }
